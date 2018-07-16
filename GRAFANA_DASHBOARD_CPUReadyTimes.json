@@ -1,0 +1,189 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:4663",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": false,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 7,
+  "iteration": 1531755030228,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 22,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "hideTimeOverride": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'cpu.readiness.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'cpu.readiness.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n\ttime ASC",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Ready %",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "svrredhost1.imprimus.com + svrredhost2.imprimus.com + svrredhost3.imprimus.com",
+          "value": [
+            "svrredhost1.imprimus.com",
+            "svrredhost2.imprimus.com",
+            "svrredhost3.imprimus.com"
+          ]
+        },
+        "datasource": "VMWareStats",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": true,
+        "name": "VMHost",
+        "options": [
+          {
+            "selected": true,
+            "text": "svrredhost1.imprimus.com",
+            "value": "svrredhost1.imprimus.com"
+          },
+          {
+            "selected": true,
+            "text": "svrredhost2.imprimus.com",
+            "value": "svrredhost2.imprimus.com"
+          },
+          {
+            "selected": true,
+            "text": "svrredhost3.imprimus.com",
+            "value": "svrredhost3.imprimus.com"
+          }
+        ],
+        "query": "SELECT DISTINCT HostName FROM Hosts",
+        "refresh": 0,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "nowDelay": "",
+    "refresh_intervals": [
+      "5m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "CPU Ready Times",
+  "uid": "SFi8rTDmz",
+  "version": 29
+}

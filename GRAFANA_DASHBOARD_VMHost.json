@@ -1,0 +1,357 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:5032",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": false,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 1,
+  "iteration": 1531755411954,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "decimals": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "hideTimeOverride": true,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + ' - ' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'cpu.usage.Average' AND\r\n\tVMHost IN ($VMHost)\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + ' - ' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'cpu.usage.Average' AND\r\n\tVMHost IN ($VMHost)\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "VMHost CPU %",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": false,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "hideTimeOverride": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.read.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.read.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Read KBps",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "KBs",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "hideTimeOverride": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.write.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.write.average' AND\r\n\tVMHost in ($VMHost)\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Write KBps",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "KBs",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "svrredhost1.imprimus.com + svrredhost2.imprimus.com + svrredhost3.imprimus.com",
+          "value": [
+            "svrredhost1.imprimus.com",
+            "svrredhost2.imprimus.com",
+            "svrredhost3.imprimus.com"
+          ]
+        },
+        "datasource": "VMWareStats",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": true,
+        "name": "VMHost",
+        "options": [],
+        "query": "SELECT DISTINCT HostName FROM Hosts",
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "VMHost",
+  "uid": "P8R2QfHik",
+  "version": 60
+}

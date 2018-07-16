@@ -1,0 +1,671 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
+        "name": "Annotations & Alerts",
+        "rawQuery": "SELECT\n    <time_column> as time,\n    <text_column> as text,\n    <tags_column> as tags\n  FROM\n    <table name>\n  WHERE\n    $__timeFilter(time_column)\n  ORDER BY\n    <time_column> ASC",
+        "showIn": 0,
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": false,
+  "gnetId": 2840,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": null,
+      "decimals": 2,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 35,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\n  $__timeEpoch(Timestamp),\n  (([CapacityGB] - [FreeSpaceGB]) / [CapacityGB]) * 100 as value,\n  '% Used' as metric\nFROM\n  tblDataStores\nWHERE\n  $__timeFilter(Timestamp) and DataStoreName = 'DS-01'\nORDER BY\n  Timestamp ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "95,98",
+      "title": "DS-01",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": null,
+      "decimals": 2,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 33,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\n  $__timeEpoch(Timestamp),\n  (([CapacityGB] - [FreeSpaceGB]) / [CapacityGB]) * 100 as value,\n  '% Used' as metric\nFROM\n  tblDataStores\nWHERE\n  $__timeFilter(Timestamp) and DataStoreName = 'DS-02'\nORDER BY\n  Timestamp ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "95,98",
+      "title": "DS-02",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": null,
+      "decimals": 2,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 39,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\n  $__timeEpoch(Timestamp),\n  (([CapacityGB] - [FreeSpaceGB]) / [CapacityGB]) * 100 as value,\n  '% Used' as metric\nFROM\n  tblDataStores\nWHERE\n  $__timeFilter(Timestamp) and DataStoreName = 'DS-Logs'\nORDER BY\n  Timestamp ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "95,98",
+      "title": "DS-Logs",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": null,
+      "decimals": 2,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 37,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\n  $__timeEpoch(Timestamp),\n  (([CapacityGB] - [FreeSpaceGB]) / [CapacityGB]) * 100 as value,\n  '% Used' as metric\nFROM\n  tblDataStores\nWHERE\n  $__timeFilter(Timestamp) and DataStoreName = 'DS-SSD'\nORDER BY\n  Timestamp ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "95,98",
+      "title": "DS-SSD",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 0,
+        "y": 7
+      },
+      "hideTimeOverride": false,
+      "id": 41,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.read.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.read.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.write.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.write.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Read/Write KBps",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "KBs",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 8,
+        "y": 7
+      },
+      "hideTimeOverride": false,
+      "id": 43,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.numberwriteaveraged.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.numberwriteaveraged.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.numberreadaveraged.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.numberreadaveraged.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "# Read/Write",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 16,
+        "y": 7
+      },
+      "hideTimeOverride": false,
+      "id": 45,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.totalwritelatency.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.totalwritelatency.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.totalreadlatency.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'datastore.totalreadlatency.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latency",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Data Store",
+  "uid": "_keF_ENik",
+  "version": 71
+}

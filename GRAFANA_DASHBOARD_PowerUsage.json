@@ -1,0 +1,150 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": false,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 5,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VMWareStats",
+      "fill": 1,
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId IN ('power.power.average')\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS value,\r\n\tVMGuest + ' - ' + MetricId + ' (' + Unit + ')' AS metric\r\nFROM\r\n\tdbo.tblGuestPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId IN ('power.power.average')\r\nGROUP BY\r\n\tVMGuest,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\nORDER BY\r\n  time ASC",
+          "refId": "A"
+        },
+        {
+          "alias": "",
+          "format": "time_series",
+          "hide": false,
+          "rawSql": "SELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'power.power.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nUNION\r\n\r\nSELECT\r\n\t$__timeEpoch(Timestamp),\r\n\tAVG(Value) AS Value,\r\n\tVMHost + '-' + MetricId as metric\r\nFROM\r\n\tdbo.tblHostPerfStats_Daily\r\n/* dirty read, we just want the data as quick as possible*/\r\nWITH (NOLOCK)\r\nWHERE\r\n\t$__timeFilter(Timestamp) AND\r\n\tMetricId = 'power.power.average'\r\nGROUP BY\r\n\tVMHost,\r\n\tMetricId,\r\n\tUnit,\r\n\tTimestamp\r\n\r\nORDER BY\r\n  time ASC",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": 5
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Power Usage",
+  "uid": "V5gukSDik",
+  "version": 25
+}
